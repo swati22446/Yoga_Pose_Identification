@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Result — YogaLens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body class="page-output">
+
+  <nav class="navbar">
+    <a href="/" class="nav-logo">🧘 YogaLens</a>
+    <a href="/input" class="nav-cta">Try Another →</a>
+  </nav>
+
+  <main class="output-main">
+
+    <div class="result-card">
+
+      <!-- Hero: image + prediction summary -->
+      <div class="result-hero">
+
+        <div class="result-img-col">
+          <img src="data:image/{{ img_ext }};base64,{{ img_b64 }}" alt="Uploaded pose"/>
+        </div>
+
+        <div class="result-info-col">
+          <div class="pose-emoji">{{ emoji }}</div>
+          <div class="pose-label-tag">Detected Pose</div>
+          <div class="pose-name">{{ display }}</div>
+
+          <div class="conf-section">
+            <div class="conf-label-row">
+              <span class="conf-text">Confidence</span>
+              <span class="conf-value">{{ confidence }}%</span>
+            </div>
+            <div class="conf-bar-bg">
+              <!-- width is a server-rendered value, not style pollution -->
+              <div class="conf-bar-fill" style="width: {{ confidence }}%"></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.result-hero -->
+
+      <!-- Description -->
+      <div class="result-desc">
+        <p>{{ description }}</p>
+      </div>
+
+      <!-- Benefits -->
+      <div class="result-benefits">
+        <h4>Key Benefits</h4>
+        <div class="benefits-list">
+          {% for b in benefits %}
+          <span class="benefit-tag">{{ b }}</span>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- All predictions -->
+      <div class="result-all-preds">
+        <h4>All Class Probabilities</h4>
+        {% for name, pct in all_preds %}
+        <div class="pred-row">
+          <span class="pred-name">{{ name }}</span>
+          <div class="pred-bar-bg">
+            <div class="pred-bar-fill {% if loop.first %}top{% endif %}"
+                 style="width: {{ pct }}%"></div>
+          </div>
+          <span class="pred-pct">{{ pct }}%</span>
+        </div>
+        {% endfor %}
+      </div>
+
+    </div><!-- /.result-card -->
+
+    <div class="output-actions">
+      <a href="/input" class="btn-primary">Analyse Another Pose</a>
+      <a href="/"      class="btn-secondary">Back to Home</a>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p>YogaLens · Xception Transfer Learning</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

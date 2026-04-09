@@ -1,0 +1,38 @@
+== YogaLens — Resource Links ==
+
+DATASET
+-------
+Yoga Pose Classification (Kaggle):
+https://www.kaggle.com/datasets/ujjwalchowdhury/yoga-pose-classification
+
+Classes: downdog | goddess | plank | tree | warrior2
+
+LEARNING RESOURCES
+------------------
+CNN Basics:
+https://towardsdatascience.com/basics-of-the-classic-cnn-a3dce1225add
+
+VGG16:
+https://medium.com/@mygreatlearning/what-is-vgg16-introduction-to-vgg16-f2d63849f615
+
+ResNet-50:
+https://towardsdatascience.com/understanding-and-coding-a-resnet-in-keras-446d7ff84d33
+
+Inception-V3:
+https://iq.opengenus.org/inception-v3-model-architecture/
+
+Xception:
+https://pyimagesearch.com/2017/03/20/imagenet-vggnet-resnet-inception-xception-keras/
+
+OpenCV:
+https://www.youtube.com/watch?v=-Ig2ibBkc7Q
+
+Flask:
+https://www.youtube.com/watch?v=lj4I_CvBnt0
+
+NOTES
+-----
+- Train the model in Google Colab (Training/Xception.ipynb)
+- After training, save the model as Flask/xcep_yoga.h5
+- Run the app: cd Flask && python app.py
+- Open browser at: http://localhost:5000

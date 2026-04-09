@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload Pose — YogaLens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body class="page-input">
+
+  <nav class="navbar">
+    <a href="/" class="nav-logo">🧘 YogaLens</a>
+    <span class="nav-tag">Upload a Pose</span>
+  </nav>
+
+  <main class="input-main">
+    <div class="input-card">
+      <h2>Upload Your Yoga Photo</h2>
+      <p class="input-sub">Supports PNG, JPG, WEBP · Max 10MB</p>
+
+      {% if error %}
+      <div class="error-banner">⚠ {{ error }}</div>
+      {% endif %}
+
+      <form action="/predict" method="POST" enctype="multipart/form-data" id="upload-form">
+
+        <div class="drop-zone" id="drop-zone">
+          <input type="file" name="file" id="file-input" accept="image/*" required/>
+          <div class="drop-icon">📷</div>
+          <h3>Drop image here</h3>
+          <p>or click to browse</p>
+        </div>
+
+        <div id="preview-wrap" hidden>
+          <img id="preview-img" src="" alt="Preview"/>
+          <p id="preview-name" class="preview-name"></p>
+        </div>
+
+        <button type="submit" class="btn-primary full-width" id="btn-submit" disabled>
+          Analyse Pose
+        </button>
+
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>YogaLens · Xception Transfer Learning</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

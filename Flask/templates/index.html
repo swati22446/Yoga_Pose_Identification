@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>YogaLens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+</head>
+<body class="page-home">
+
+  <nav class="navbar">
+    <a href="/" class="nav-logo">🧘 YogaLens</a>
+    <span class="nav-tag">AI Pose Detection</span>
+    <a href="/input" class="nav-cta">Try It →</a>
+  </nav>
+
+  <section class="hero">
+    <p class="hero-tag">Computer Vision · Deep Learning · Wellness</p>
+    <h1>Know Your <span>Pose</span></h1>
+    <p class="hero-sub">
+      Upload a photo and our AI instantly identifies your yoga posture,
+      gives you a confidence score, and explains the benefits.
+    </p>
+    <a href="/input" class="btn-primary">Analyse a Pose</a>
+
+    <div class="hero-poses">
+      <span class="pose-pill">🐕 Downward Dog</span>
+      <span class="pose-pill">👸 Goddess</span>
+      <span class="pose-pill">💪 Plank</span>
+      <span class="pose-pill">🌳 Tree</span>
+      <span class="pose-pill">⚔️ Warrior II</span>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">
+        <p class="step-num">01</p>
+        <h3>Upload</h3>
+        <p>Choose or drag a photo of yourself in a yoga pose.</p>
+      </div>
+      <span class="step-arrow">→</span>
+      <div class="step">
+        <p class="step-num">02</p>
+        <h3>Analyse</h3>
+        <p>Our Xception model processes the image in seconds.</p>
+      </div>
+      <span class="step-arrow">→</span>
+      <div class="step">
+        <p class="step-num">03</p>
+        <h3>Learn</h3>
+        <p>See your pose, confidence score, and benefits.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>YogaLens · Xception Transfer Learning</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
