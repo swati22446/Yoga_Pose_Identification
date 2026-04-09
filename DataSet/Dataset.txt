@@ -1,0 +1,6 @@
+The dataset used in this project is not included in the repository due to its size. It can be downloaded from Kaggle:
+https://www.kaggle.com/datasets/ujjwalchowdhury/yoga-pose-classification
+
+After downloading, extract the files and place the YogaPoses folder inside the Dataset/ directory. 
+Ensure the structure contains class-wise subfolders (Downdog, Goddess, Plank, Tree, Warrior2) so that the training notebook 
+and Flask app can load the data correctly.
