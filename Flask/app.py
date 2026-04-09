@@ -9,9 +9,9 @@ from PIL import Image
 app = Flask(__name__)
 
 # ── Configuration ──────────────────────────────────────────────────────────────
-MODEL_PATH   = os.path.join(os.path.dirname(__file__), 'xcep_yoga_best.keras')
-IMG_SIZE     = (299, 299)
-ALLOWED_EXT  = {'png', 'jpg', 'jpeg', 'webp'}
+MODEL_PATH  = os.path.join(os.path.dirname(__file__), 'xcep_yoga_best.keras')
+IMG_SIZE    = (299, 299)
+ALLOWED_EXT = {'png', 'jpg', 'jpeg', 'webp'}
 
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024   # 10 MB
 
@@ -111,7 +111,7 @@ def preprocess_and_predict(img_bytes):
     label = CLASS_LABELS[top]
     conf  = round(float(preds[top]) * 100, 2)
 
-    # All classes sorted descending — list of (display_name, pct) tuples for Jinja
+    # Sorted list of (display_name, pct) for Jinja iteration
     all_preds = sorted(
         [(CLASS_LABELS[i], round(float(p) * 100, 2)) for i, p in enumerate(preds)],
         key=lambda x: x[1], reverse=True
@@ -123,29 +123,34 @@ def preprocess_and_predict(img_bytes):
 def home():
     return render_template('index.html')
 
+# /input and /predict both accept the upload so that
+# the "Try Another" link on output.html also works
 @app.route('/input')
 def input_page():
-    return render_template('input.html')
+    return redirect(url_for('home') + '#image')
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    # Validate upload
+    if request.method == 'GET':
+        return redirect(url_for('home') + '#image')
+
+    # Validate file
     if 'file' not in request.files:
-        return render_template('input.html', error='No file uploaded.')
+        return render_template('index.html', upload_error='No file uploaded.')
 
     file = request.files['file']
     if file.filename == '' or not allowed_file(file.filename):
-        return render_template('input.html', error='Invalid file. Please use PNG, JPG, or WEBP.')
+        return render_template('index.html', upload_error='Invalid file. Use PNG, JPG, or WEBP.')
 
     try:
-        img_bytes            = file.read()
+        img_bytes              = file.read()
         label, conf, all_preds = preprocess_and_predict(img_bytes)
     except FileNotFoundError as e:
-        return render_template('input.html', error=str(e))
+        return render_template('index.html', upload_error=str(e))
     except Exception as e:
-        return render_template('input.html', error=f'Prediction failed: {str(e)}')
+        return render_template('index.html', upload_error=f'Prediction failed: {str(e)}')
 
-    # Encode image as base64 for embedding directly in output.html
+    # Encode image for embedding in output.html
     ext     = file.filename.rsplit('.', 1)[1].lower()
     img_b64 = base64.b64encode(img_bytes).decode('utf-8')
 
@@ -161,7 +166,7 @@ def predict():
         description=info['description'],
         benefits=info['benefits'],
         confidence=conf,
-        all_preds=all_preds,   # list of (name, pct) tuples
+        all_preds=all_preds,
         img_b64=img_b64,
         img_ext=ext,
     )

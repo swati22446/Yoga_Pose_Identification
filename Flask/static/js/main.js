@@ -1,20 +1,86 @@
 /* ══════════════════════════════════════════════════════════════════════════════
-   main.js — Input page: drag-and-drop, preview, submit handling
-   Output page is fully server-rendered by Jinja2, no JS needed there.
+   main.js — YogaLens
+   Handles: navbar scroll-spy · hamburger · image drop zone · upload form
 ══════════════════════════════════════════════════════════════════════════════ */
 
 document.addEventListener("DOMContentLoaded", () => {
+  /* ── Navbar: scroll-spy active link ───────────────────────────────────────── */
+  const navLinks = document.querySelectorAll(".nav-link");
+  const sections = document.querySelectorAll("section[id]");
+
+  function updateActiveLink() {
+    let current = "";
+    sections.forEach((s) => {
+      if (window.scrollY >= s.offsetTop - 90) current = s.id;
+    });
+    navLinks.forEach((a) => {
+      a.classList.remove("active");
+      if (
+        a.getAttribute("href") === "#" + current ||
+        a.getAttribute("href") === "/#" + current
+      ) {
+        a.classList.add("active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateActiveLink, { passive: true });
+  updateActiveLink();
+
+  /* ── Navbar: hamburger toggle (mobile) ────────────────────────────────────── */
+  const hamburger = document.getElementById("nav-hamburger");
+  const navList = document.getElementById("nav-links");
+
+  if (hamburger && navList) {
+    hamburger.addEventListener("click", () => {
+      navList.classList.toggle("open");
+    });
+    // Close on link click
+    navList.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => navList.classList.remove("open"));
+    });
+  }
+
+  /* ── Model cards: touch/click toggle on mobile ────────────────────────────── */
+  document.querySelectorAll(".model-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      // Toggle an 'active' class so mobile users can see the back
+      card.classList.toggle("flipped");
+    });
+  });
+
+  /* ── Contact form ─────────────────────────────────────────────────────────── */
+  const contactForm = document.getElementById("contact-form");
+  const formSuccess = document.getElementById("form-success");
+
+  if (contactForm) {
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!contactForm.checkValidity()) {
+        contactForm.reportValidity();
+        return;
+      }
+      if (formSuccess) {
+        formSuccess.hidden = false;
+        contactForm.reset();
+        setTimeout(() => {
+          formSuccess.hidden = true;
+        }, 5000);
+      }
+    });
+  }
+
+  /* ── Image upload: drop zone ─────────────────────────────────────────────── */
   const fileInput = document.getElementById("file-input");
-  if (!fileInput) return; // Not on input page — exit early
+  if (!fileInput) return; // Not on a page with the upload form
 
   const dropZone = document.getElementById("drop-zone");
   const previewWrap = document.getElementById("preview-wrap");
   const previewImg = document.getElementById("preview-img");
   const previewName = document.getElementById("preview-name");
   const btnSubmit = document.getElementById("btn-submit");
-  const form = document.getElementById("upload-form");
+  const uploadForm = document.getElementById("upload-form");
 
-  /* ── Drag events ── */
   dropZone.addEventListener("dragover", (e) => {
     e.preventDefault();
     dropZone.classList.add("drag-over");
@@ -31,19 +97,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (file) applyFile(file);
   });
 
-  /* ── File input change ── */
   fileInput.addEventListener("change", () => {
     if (fileInput.files[0]) applyFile(fileInput.files[0]);
   });
 
-  /* ── Apply file: show preview, enable submit ── */
   function applyFile(file) {
-    // Transfer to input element (required after drag-drop)
     const dt = new DataTransfer();
     dt.items.add(file);
     fileInput.files = dt.files;
 
-    // Preview
     const reader = new FileReader();
     reader.onload = (ev) => {
       previewImg.src = ev.target.result;
@@ -52,12 +114,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     reader.readAsDataURL(file);
 
-    btnSubmit.disabled = false;
+    if (btnSubmit) btnSubmit.disabled = false;
   }
 
-  /* ── Loading state on submit ── */
-  form.addEventListener("submit", () => {
-    btnSubmit.disabled = true;
-    btnSubmit.textContent = "Analysing…";
-  });
+  if (uploadForm) {
+    uploadForm.addEventListener("submit", () => {
+      if (btnSubmit) {
+        btnSubmit.disabled = true;
+        btnSubmit.textContent = "Analysing…";
+      }
+    });
+  }
 });

@@ -3,63 +3,296 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>YogaLens</title>
+  <title>YogaLens — AI Pose Detection</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
 </head>
-<body class="page-home">
+<body>
 
-  <nav class="navbar">
-    <a href="/" class="nav-logo">🧘 YogaLens</a>
-    <span class="nav-tag">AI Pose Detection</span>
-    <a href="/input" class="nav-cta">Try It →</a>
+  <!-- ══════════ NAVBAR ══════════ -->
+  <nav class="navbar" id="navbar">
+    <a href="#home" class="nav-brand">🧘 YogaLens</a>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">☰</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home"    class="nav-link active">Home</a></li>
+      <li><a href="#about"   class="nav-link">About</a></li>
+      <li><a href="#models"  class="nav-link">Models</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+      <li><a href="#image"   class="nav-link nav-cta-pill">Try It</a></li>
+    </ul>
   </nav>
 
-  <section class="hero">
-    <p class="hero-tag">Computer Vision · Deep Learning · Wellness</p>
-    <h1>Know Your <span>Pose</span></h1>
-    <p class="hero-sub">
-      Upload a photo and our AI instantly identifies your yoga posture,
-      gives you a confidence score, and explains the benefits.
-    </p>
-    <a href="/input" class="btn-primary">Analyse a Pose</a>
-
-    <div class="hero-poses">
-      <span class="pose-pill">🐕 Downward Dog</span>
-      <span class="pose-pill">👸 Goddess</span>
-      <span class="pose-pill">💪 Plank</span>
-      <span class="pose-pill">🌳 Tree</span>
-      <span class="pose-pill">⚔️ Warrior II</span>
+  <!-- ══════════ HOME ══════════ -->
+  <section id="home" class="section section-home">
+    <div class="home-bg-blobs">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <div class="home-content">
+      <span class="home-eyebrow">AI · Computer Vision · Wellness</span>
+      <h1 class="home-title">
+        Identify Your<br/>
+        <em>Yoga Pose</em><br/>
+        Instantly
+      </h1>
+      <p class="home-sub">
+        Upload a photo — our deep learning model tells you exactly which pose you're in,
+        how confident it is, and why that pose benefits you.
+      </p>
+      <div class="home-actions">
+        <a href="#image" class="btn-primary">Analyse a Pose</a>
+        <a href="#about" class="btn-ghost">Learn More</a>
+      </div>
+      <div class="home-pills">
+        <span class="pill">🐕 Downward Dog</span>
+        <span class="pill">👸 Goddess</span>
+        <span class="pill">💪 Plank</span>
+        <span class="pill">🌳 Tree</span>
+        <span class="pill">⚔️ Warrior II</span>
+      </div>
+    </div>
+    <div class="home-visual">
+      <div class="pose-card pose-card-1">
+        <span class="pose-card-emoji">🌳</span>
+        <span class="pose-card-label">Tree Pose</span>
+        <div class="pose-card-bar"><div style="width:92%"></div></div>
+        <span class="pose-card-pct">92%</span>
+      </div>
+      <div class="pose-card pose-card-2">
+        <span class="pose-card-emoji">⚔️</span>
+        <span class="pose-card-label">Warrior II</span>
+        <div class="pose-card-bar"><div style="width:76%"></div></div>
+        <span class="pose-card-pct">76%</span>
+      </div>
+      <div class="pose-card pose-card-3">
+        <span class="pose-card-emoji">💪</span>
+        <span class="pose-card-label">Plank</span>
+        <div class="pose-card-bar"><div style="width:58%"></div></div>
+        <span class="pose-card-pct">58%</span>
+      </div>
     </div>
   </section>
 
-  <section class="how-it-works">
-    <h2>How it works</h2>
-    <div class="steps">
-      <div class="step">
-        <p class="step-num">01</p>
-        <h3>Upload</h3>
-        <p>Choose or drag a photo of yourself in a yoga pose.</p>
+  <!-- ══════════ ABOUT ══════════ -->
+  <section id="about" class="section section-about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Our Story</span>
+        <h2 class="section-title">What is <em>YogaLens</em>?</h2>
+        <div class="section-rule"><span>✦</span></div>
       </div>
-      <span class="step-arrow">→</span>
-      <div class="step">
-        <p class="step-num">02</p>
-        <h3>Analyse</h3>
-        <p>Our Xception model processes the image in seconds.</p>
-      </div>
-      <span class="step-arrow">→</span>
-      <div class="step">
-        <p class="step-num">03</p>
-        <h3>Learn</h3>
-        <p>See your pose, confidence score, and benefits.</p>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Yoga is a 5000-year-old practice developed in ancient India by the
+            Indus-Sarasvati civilization. The word <strong>yoga</strong> means deep
+            association and union of mind with the body. It keeps both mind and body
+            in equilibrium through asana, meditation, and several other techniques.
+          </p>
+          <p>
+            Nowadays, yoga has gained worldwide attention due to increased stress
+            levels in the modern lifestyle. While yoga can be practised in centres or
+            with personal tutors, many people prefer self-learning — but in
+            self-learning, incorrect posture can be harmful to health, resulting in
+            acute pain and long-term chronic concerns.
+          </p>
+          <p>
+            <strong>YogaLens</strong> bridges that gap. Upload a photo and our
+            Xception-based model instantly identifies your pose, giving you the
+            confidence to practise safely on your own.
+          </p>
+          <div class="about-btns">
+            <a href="#image"  class="btn-primary">Try It Now</a>
+            <a href="#models" class="btn-outline">View Models</a>
+          </div>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <span class="stat-num">5</span>
+            <span class="stat-label">Poses Detected</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">48</span>
+            <span class="stat-label">Model Layers</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">299²</span>
+            <span class="stat-label">Input Resolution</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">∞</span>
+            <span class="stat-label">Poses to Learn</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ══════════ MODELS ══════════ -->
+  <section id="models" class="section section-models">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Architecture</span>
+        <h2 class="section-title">The <em>Models</em></h2>
+        <div class="section-rule"><span>✦</span></div>
+        <p class="section-sub">Hover or tap any model to explore its architecture and description.</p>
+      </div>
+      <div class="models-grid">
+
+        <!-- Inception -->
+        <div class="model-card" id="mc-inception">
+          <div class="model-card-front">
+            <div class="model-icon">🔮</div>
+            <h3>Inception V3</h3>
+            <span class="model-tag">48 layers · 299×299</span>
+          </div>
+          <div class="model-card-back">
+            <h4>Inception V3</h4>
+            <div class="model-arch">
+              Input: 299×299×3<br/>
+              → Conv layers → Inception modules<br/>
+              → AvgPool → Dropout → FC<br/>
+              → Softmax · Output: 8×8×2048
+            </div>
+            <p>A 48-layer CNN using factorised convolutions inside "inception modules" to classify 1000+ object categories efficiently.</p>
+            <a href="https://iq.opengenus.org/inception-v3-model-architecture/" target="_blank" class="model-link">Read More →</a>
+          </div>
+        </div>
+
+        <!-- Xception -->
+        <div class="model-card model-card-featured" id="mc-xception">
+          <div class="model-card-front">
+            <div class="model-icon">⚡</div>
+            <h3>Xception</h3>
+            <span class="model-tag">Used in YogaLens · 299×299</span>
+          </div>
+          <div class="model-card-back">
+            <h4>Xception</h4>
+            <div class="model-arch">
+              Input: 299×299×3<br/>
+              → Entry Flow<br/>
+              → Middle Flow (×8)<br/>
+              → Exit Flow → GlobalAvgPool<br/>
+              → Dense(5, Softmax)
+            </div>
+            <p>An extension of Inception replacing standard modules with depthwise separable convolutions — more accurate with fewer parameters.</p>
+            <a href="https://pyimagesearch.com/2017/03/20/imagenet-vggnet-resnet-inception-xception-keras/" target="_blank" class="model-link">Read More →</a>
+          </div>
+        </div>
+
+        <!-- ResNet -->
+        <div class="model-card" id="mc-resnet">
+          <div class="model-card-front">
+            <div class="model-icon">🔗</div>
+            <h3>ResNet 50</h3>
+            <span class="model-tag">50 layers · 224×224</span>
+          </div>
+          <div class="model-card-back">
+            <h4>ResNet 50</h4>
+            <div class="model-arch">
+              Input: 224×224×3<br/>
+              → Conv1 → MaxPool<br/>
+              → Residual Blocks (×16)<br/>
+              → AvgPool → FC → Softmax
+            </div>
+            <p>Uses skip connections so gradients flow freely, solving the vanishing gradient problem in very deep networks (50 layers).</p>
+            <a href="https://towardsdatascience.com/understanding-and-coding-a-resnet-in-keras-446d7ff84d33" target="_blank" class="model-link">Read More →</a>
+          </div>
+        </div>
+
+        <!-- VGG -->
+        <div class="model-card" id="mc-vgg">
+          <div class="model-card-front">
+            <div class="model-icon">🏛️</div>
+            <h3>VGG 19</h3>
+            <span class="model-tag">19 layers · 224×224</span>
+          </div>
+          <div class="model-card-back">
+            <h4>VGG 19</h4>
+            <div class="model-arch">
+              Input: 224×224×3<br/>
+              → 16 Conv Layers (3×3)<br/>
+              → 3 Fully Connected<br/>
+              → Softmax (1000 classes)
+            </div>
+            <p>A classical, deep network using only 3×3 convolutions throughout. Widely used as a feature extractor in transfer learning.</p>
+            <a href="https://medium.com/@mygreatlearning/what-is-vgg16-introduction-to-vgg16-f2d63849f615" target="_blank" class="model-link">Read More →</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CONTACT ══════════ -->
+  <section id="contact" class="section section-contact">
+    <div class="container container-narrow">
+      <div class="section-header">
+        <span class="section-eyebrow">Get in Touch</span>
+        <h2 class="section-title">Contact <em>Me</em></h2>
+        <div class="section-rule"><span>✦</span></div>
+      </div>
+      <form class="contact-form" id="contact-form" novalidate>
+        <div class="form-row">
+          <div class="form-field">
+            <label for="cf-name">Full Name</label>
+            <input type="text" id="cf-name" placeholder="Your name" required/>
+          </div>
+          <div class="form-field">
+            <label for="cf-email">Email Address</label>
+            <input type="email" id="cf-email" placeholder="you@example.com" required/>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="cf-phone">Phone Number <span class="form-optional">(optional)</span></label>
+          <input type="tel" id="cf-phone" placeholder="+91 00000 00000"/>
+        </div>
+        <div class="form-field">
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" rows="5" placeholder="Write your message here…" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary btn-full">Send Message</button>
+        <p class="form-success" id="form-success" hidden>✅ Message sent — thank you!</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ══════════ IMAGE (Upload & Predict) ══════════ -->
+  <section id="image" class="section section-image">
+    <div class="container container-narrow">
+      <div class="section-header">
+        <span class="section-eyebrow">Pose Detection</span>
+        <h2 class="section-title">Upload Your <em>Pose</em></h2>
+        <div class="section-rule"><span>✦</span></div>
+        <p class="section-sub">PNG · JPG · WEBP · Max 10 MB</p>
+      </div>
+
+      <form action="/predict" method="POST" enctype="multipart/form-data" id="upload-form">
+        <div class="drop-zone" id="drop-zone">
+          <input type="file" name="file" id="file-input" accept="image/png,image/jpeg,image/webp" required/>
+          <div class="drop-icon">📷</div>
+          <p class="drop-title">Drop your image here</p>
+          <p class="drop-sub">or click to browse</p>
+        </div>
+
+        <div id="preview-wrap" hidden>
+          <img id="preview-img" src="" alt="Preview"/>
+          <p id="preview-name" class="preview-name"></p>
+        </div>
+
+        <button type="submit" class="btn-primary btn-full" id="btn-submit" disabled>
+          Analyse Pose
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ══════════ FOOTER ══════════ -->
   <footer class="footer">
-    <p>YogaLens · Xception Transfer Learning</p>
+    <p>© 2025 YogaLens · Built with Xception &amp; Flask · Made with 🧘</p>
   </footer>
 
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
