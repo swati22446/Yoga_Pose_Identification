@@ -439,6 +439,7 @@ strong { font-weight: 700; }
   gap: 1.2rem;
 }
 
+/* ── Model cards (clickable) ─────────────────────────────────────────────────── */
 .model-card {
   position: relative;
   border-radius: var(--radius-md);
@@ -447,26 +448,33 @@ strong { font-weight: 700; }
   min-height: 260px;
   box-shadow: var(--shadow-sm);
   transition: box-shadow 0.25s, transform 0.25s;
+  user-select: none;
 }
 .model-card:hover {
   box-shadow: var(--shadow-lg);
-  transform: translateY(-4px);
+  transform: translateY(-6px);
 }
 
-.model-card-front,
-.model-card-back {
+.model-card-front {
   position: absolute;
   inset: 0;
   padding: 1.8rem 1.4rem;
   display: flex;
   flex-direction: column;
-  transition: opacity 0.35s, transform 0.35s;
-}
-
-/* Front */
-.model-card-front {
   background: var(--navy);
   justify-content: flex-end;
+}
+
+/* Hint label at bottom of each card */
+.model-card-front::after {
+  content: 'Click to explore →';
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
 }
 
 .model-icon {
@@ -491,51 +499,126 @@ strong { font-weight: 700; }
   color: var(--gold);
 }
 
-/* Back */
-.model-card-back {
-  background: var(--coral);
-  color: #fff;
-  opacity: 0;
-  transform: translateY(8px);
-  justify-content: center;
-  gap: 0.8rem;
-}
-.model-card:hover .model-card-back  { opacity: 1; transform: translateY(0); }
-.model-card:hover .model-card-front { opacity: 0; transform: translateY(-8px); }
-
-.model-card-back h4 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.model-arch {
-  background: rgba(0,0,0,0.2);
-  border-radius: var(--radius-sm);
-  padding: 0.7rem 0.9rem;
-  font-family: 'Courier New', monospace;
-  font-size: 0.72rem;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.9);
-}
-
-.model-card-back p {
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.92);
-}
-
-.model-link {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #fff;
-  text-decoration: underline;
-  margin-top: auto;
-}
-
 /* Featured card (Xception) */
 .model-card-featured .model-card-front { background: var(--green); }
-.model-card-featured .model-card-back  { background: var(--green-lt); }
+
+/* ── Model modal ─────────────────────────────────────────────────────────────── */
+.model-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 30, 0.75);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(6px);
+}
+.model-modal-overlay.open {
+  display: flex;
+  animation: fadeInOverlay 0.2s ease;
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.model-modal {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.35);
+  animation: slideUpModal 0.25s ease;
+  position: relative;
+}
+
+@keyframes slideUpModal {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.model-modal-header {
+  padding: 2rem 2rem 1.2rem;
+  border-bottom: 1px solid var(--mist);
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.model-modal-icon { font-size: 3rem; line-height: 1; flex-shrink: 0; }
+
+.model-modal-header-text { flex: 1; }
+
+.model-modal-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--navy);
+  margin-bottom: 0.2rem;
+}
+
+.model-modal-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--coral);
+}
+
+.model-modal-close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--smoke);
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--mid);
+  transition: background 0.2s, color 0.2s;
+}
+.model-modal-close:hover { background: var(--coral); color: #fff; }
+
+.model-modal-body { padding: 1.5rem 2rem 2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+
+.model-modal-arch {
+  background: var(--navy);
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1.4rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: var(--gold);
+}
+
+.model-modal-desc {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--mid);
+}
+
+.model-modal-link {
+  display: inline-block;
+  padding: 0.65rem 1.6rem;
+  background: var(--navy);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+.model-modal-link:hover { background: var(--coral); }
 
 /* ══════════════════════════════════════════════════════════════════════════════
    CONTACT SECTION

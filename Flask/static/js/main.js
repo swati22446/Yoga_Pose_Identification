@@ -41,12 +41,50 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ── Model cards: touch/click toggle on mobile ────────────────────────────── */
-  document.querySelectorAll(".model-card").forEach((card) => {
+  /* ── Model card modals ────────────────────────────────────────────────────── */
+  document.querySelectorAll(".model-card[data-modal]").forEach((card) => {
     card.addEventListener("click", () => {
-      // Toggle an 'active' class so mobile users can see the back
-      card.classList.toggle("flipped");
+      const modalId = card.getAttribute("data-modal");
+      const overlay = document.getElementById(modalId);
+      if (overlay) {
+        overlay.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }
     });
+  });
+
+  // Close buttons inside modals
+  document.querySelectorAll(".model-modal-close").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const modalId = btn.getAttribute("data-close");
+      const overlay = document.getElementById(modalId);
+      if (overlay) {
+        overlay.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+    });
+  });
+
+  // Click outside modal box to close
+  document.querySelectorAll(".model-modal-overlay").forEach((overlay) => {
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+    });
+  });
+
+  // Escape key closes any open modal
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      document
+        .querySelectorAll(".model-modal-overlay.open")
+        .forEach((overlay) => {
+          overlay.classList.remove("open");
+          document.body.style.overflow = "";
+        });
+    }
   });
 
   /* ── Contact form ─────────────────────────────────────────────────────────── */

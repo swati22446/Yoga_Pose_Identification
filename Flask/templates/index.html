@@ -169,83 +169,38 @@
       <div class="models-grid">
 
         <!-- Inception -->
-        <div class="model-card" id="mc-inception">
+        <div class="model-card" data-modal="modal-inception">
           <div class="model-card-front">
             <div class="model-icon">🔮</div>
             <h3>Inception V3</h3>
             <span class="model-tag">48 layers · 299×299</span>
           </div>
-          <div class="model-card-back">
-            <h4>Inception V3</h4>
-            <div class="model-arch">
-              Input: 299×299×3<br/>
-              → Conv layers → Inception modules<br/>
-              → AvgPool → Dropout → FC<br/>
-              → Softmax · Output: 8×8×2048
-            </div>
-            <p>A 48-layer CNN using factorised convolutions inside "inception modules" to classify 1000+ object categories efficiently.</p>
-            <a href="https://iq.opengenus.org/inception-v3-model-architecture/" target="_blank" class="model-link">Read More →</a>
-          </div>
         </div>
 
         <!-- Xception -->
-        <div class="model-card model-card-featured" id="mc-xception">
+        <div class="model-card model-card-featured" data-modal="modal-xception">
           <div class="model-card-front">
             <div class="model-icon">⚡</div>
             <h3>Xception</h3>
             <span class="model-tag">Used in YogaLens · 299×299</span>
           </div>
-          <div class="model-card-back">
-            <h4>Xception</h4>
-            <div class="model-arch">
-              Input: 299×299×3<br/>
-              → Entry Flow<br/>
-              → Middle Flow (×8)<br/>
-              → Exit Flow → GlobalAvgPool<br/>
-              → Dense(5, Softmax)
-            </div>
-            <p>An extension of Inception replacing standard modules with depthwise separable convolutions — more accurate with fewer parameters.</p>
-            <a href="https://pyimagesearch.com/2017/03/20/imagenet-vggnet-resnet-inception-xception-keras/" target="_blank" class="model-link">Read More →</a>
-          </div>
         </div>
 
         <!-- ResNet -->
-        <div class="model-card" id="mc-resnet">
+        <div class="model-card" data-modal="modal-resnet">
           <div class="model-card-front">
             <div class="model-icon">🔗</div>
             <h3>ResNet 50</h3>
             <span class="model-tag">50 layers · 224×224</span>
           </div>
-          <div class="model-card-back">
-            <h4>ResNet 50</h4>
-            <div class="model-arch">
-              Input: 224×224×3<br/>
-              → Conv1 → MaxPool<br/>
-              → Residual Blocks (×16)<br/>
-              → AvgPool → FC → Softmax
-            </div>
-            <p>Uses skip connections so gradients flow freely, solving the vanishing gradient problem in very deep networks (50 layers).</p>
-            <a href="https://towardsdatascience.com/understanding-and-coding-a-resnet-in-keras-446d7ff84d33" target="_blank" class="model-link">Read More →</a>
-          </div>
         </div>
 
         <!-- VGG -->
-        <div class="model-card" id="mc-vgg">
+        <div class="model-card" data-modal="modal-vgg">
           <div class="model-card-front">
             <div class="model-icon">🏛️</div>
             <h3>VGG 19</h3>
             <span class="model-tag">19 layers · 224×224</span>
-          </div>
-          <div class="model-card-back">
-            <h4>VGG 19</h4>
-            <div class="model-arch">
-              Input: 224×224×3<br/>
-              → 16 Conv Layers (3×3)<br/>
-              → 3 Fully Connected<br/>
-              → Softmax (1000 classes)
-            </div>
-            <p>A classical, deep network using only 3×3 convolutions throughout. Widely used as a feature extractor in transfer learning.</p>
-            <a href="https://medium.com/@mygreatlearning/what-is-vgg16-introduction-to-vgg16-f2d63849f615" target="_blank" class="model-link">Read More →</a>
           </div>
         </div>
 
@@ -320,6 +275,135 @@
   <footer class="footer">
     <p>© 2025 YogaLens · Built with Xception &amp; Flask · Made with 🧘</p>
   </footer>
+
+  <!-- ══════════ MODEL MODALS ══════════ -->
+
+  <div class="model-modal-overlay" id="modal-inception">
+    <div class="model-modal">
+      <button class="model-modal-close" data-close="modal-inception">✕</button>
+      <div class="model-modal-header">
+        <span class="model-modal-icon">🔮</span>
+        <div class="model-modal-header-text">
+          <h2>Inception V3</h2>
+          <span class="model-modal-tag">48 layers · 299×299 input</span>
+        </div>
+      </div>
+      <div class="model-modal-body">
+        <div class="model-modal-arch">
+          Input: 299×299×3<br/>
+          → Convolution layers<br/>
+          → Inception modules (factorised convolutions)<br/>
+          → Average Pooling → Dropout<br/>
+          → Fully Connected → Softmax<br/>
+          Output: 8×8×2048 → 1001 classes
+        </div>
+        <p class="model-modal-desc">
+          InceptionV3 is a 48-layer deep convolutional neural network developed by Google.
+          It improves on earlier Inception versions by factorising large convolutions into
+          smaller, asymmetric ones — reducing computation while keeping accuracy high.
+          The pretrained network can classify images into 1000 object categories and is
+          widely used as a base for transfer learning tasks in medical imaging, wildlife
+          detection, and pose recognition.
+        </p>
+        <a href="https://iq.opengenus.org/inception-v3-model-architecture/" target="_blank" class="model-modal-link">Read Full Architecture →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="model-modal-overlay" id="modal-xception">
+    <div class="model-modal">
+      <button class="model-modal-close" data-close="modal-xception">✕</button>
+      <div class="model-modal-header">
+        <span class="model-modal-icon">⚡</span>
+        <div class="model-modal-header-text">
+          <h2>Xception</h2>
+          <span class="model-modal-tag">Used in YogaLens · 299×299 input</span>
+        </div>
+      </div>
+      <div class="model-modal-body">
+        <div class="model-modal-arch">
+          Input: 299×299×3<br/>
+          → Entry Flow (conv + depthwise separable conv)<br/>
+          → Middle Flow × 8 (repeated residual blocks)<br/>
+          → Exit Flow<br/>
+          → Global Average Pooling<br/>
+          → Dense(5, Softmax) — 5 yoga pose classes
+        </div>
+        <p class="model-modal-desc">
+          Xception (Extreme Inception) was introduced by François Chollet at Google in 2017.
+          It replaces standard Inception modules with depthwise separable convolutions — 
+          performing channel-wise and spatial convolutions independently — which makes it
+          both more accurate and more parameter-efficient than InceptionV3.
+          This is the model powering YogaLens, fine-tuned on yoga pose data to classify
+          five poses: Downward Dog, Goddess, Plank, Tree, and Warrior II.
+        </p>
+        <a href="https://pyimagesearch.com/2017/03/20/imagenet-vggnet-resnet-inception-xception-keras/" target="_blank" class="model-modal-link">Read Full Architecture →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="model-modal-overlay" id="modal-resnet">
+    <div class="model-modal">
+      <button class="model-modal-close" data-close="modal-resnet">✕</button>
+      <div class="model-modal-header">
+        <span class="model-modal-icon">🔗</span>
+        <div class="model-modal-header-text">
+          <h2>ResNet 50</h2>
+          <span class="model-modal-tag">50 layers · 224×224 input</span>
+        </div>
+      </div>
+      <div class="model-modal-body">
+        <div class="model-modal-arch">
+          Input: 224×224×3<br/>
+          → Conv1 (7×7, stride 2) → MaxPool<br/>
+          → Residual Blocks × 16 (skip connections)<br/>
+          → Global Average Pooling<br/>
+          → Fully Connected → Softmax (1000 classes)
+        </div>
+        <p class="model-modal-desc">
+          ResNet-50 (Residual Network) was introduced by Microsoft Research in 2015 and
+          won the ImageNet competition that year. Its key innovation is the residual
+          (skip) connection — a shortcut that lets gradients bypass one or more layers,
+          solving the vanishing gradient problem that made very deep networks hard to train.
+          With 50 layers and ~25 million parameters, it strikes a strong balance between
+          depth and trainability, making it one of the most widely used backbones in
+          computer vision research.
+        </p>
+        <a href="https://towardsdatascience.com/understanding-and-coding-a-resnet-in-keras-446d7ff84d33" target="_blank" class="model-modal-link">Read Full Architecture →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="model-modal-overlay" id="modal-vgg">
+    <div class="model-modal">
+      <button class="model-modal-close" data-close="modal-vgg">✕</button>
+      <div class="model-modal-header">
+        <span class="model-modal-icon">🏛️</span>
+        <div class="model-modal-header-text">
+          <h2>VGG 19</h2>
+          <span class="model-modal-tag">19 layers · 224×224 input</span>
+        </div>
+      </div>
+      <div class="model-modal-body">
+        <div class="model-modal-arch">
+          Input: 224×224×3<br/>
+          → 16 Convolutional Layers (all 3×3 filters)<br/>
+          → 5 Max Pooling Layers<br/>
+          → 3 Fully Connected Layers (4096 → 4096 → 1000)<br/>
+          → Softmax (1000 classes)
+        </div>
+        <p class="model-modal-desc">
+          VGG19, developed by the Visual Geometry Group at Oxford, proved that network
+          depth using very small (3×3) convolution filters is a critical component for
+          achieving strong performance. Its simplicity and uniformity made it easy to
+          understand and adapt. Despite having ~143 million parameters (making it quite
+          heavy), it remains widely used as a feature extractor in transfer learning,
+          style transfer, and as a perceptual loss network in image generation tasks.
+        </p>
+        <a href="https://medium.com/@mygreatlearning/what-is-vgg16-introduction-to-vgg16-f2d63849f615" target="_blank" class="model-modal-link">Read Full Architecture →</a>
+      </div>
+    </div>
+  </div>
 
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
